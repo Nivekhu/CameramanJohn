@@ -1,0 +1,15 @@
+#####################################
+cmake_minimum_required (VERSION 2.8) 
+project (raspicam_test)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+find_package(raspicam REQUIRED)
+find_package(OpenCV REQUIRED)
+IF  ( OpenCV_FOUND AND raspicam_CV_FOUND)
+MESSAGE(STATUS "COMPILING OPENCV TESTS")
+add_executable (simpletest_raspicam_cv simpletest_raspicam_cv.cpp)  
+target_link_libraries (simpletest_raspicam_cv ${raspicam_CV_LIBS})
+target_link_libraries (simpletest_raspicam_cv ${OpenCV_LIBS})
+ELSE()
+MESSAGE(FATAL_ERROR "OPENCV NOT FOUND IN YOUR SYSTEM")
+ENDIF()
+#####################################
