@@ -10,7 +10,7 @@ int main ( int argc,char **argv ) {
 		time_t timer_begin,timer_end;
 		raspicam::RaspiCam_Cv Camera;
 		cv::Mat image;
-		int nCount=100;
+		int nCount=10;
 		//set camera params
 		Camera.set( CV_CAP_PROP_FORMAT, CV_8UC1 );
 		//Open camera
@@ -34,10 +34,8 @@ int main ( int argc,char **argv ) {
 		namedWindow("Displaywindow", WINDOW_AUTOSIZE);
 		imshow("DisplayWindow", image);
 		cout<<"displaying image"<<endl;
-
-		//save image 
-		cv::imwrite("raspicam_cv_image.jpg",image);
-		cout<<"Image saved at raspicam_cv_image.jpg"<<endl;
+		
+		//waits on a key press
 		waitKey(0);
-		return 0;
+		cout<<"closing program"<<endl;
 }
