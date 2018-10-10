@@ -26,12 +26,13 @@ int main ( int argc,char **argv ) {
 		}
 		cout<<"Stop camera..."<<endl;
 		Camera.release();
+		
 		//show time statistics
 		time ( &timer_end ); /* get current time; same as: timer = time(NULL)  */
 		double secondsElapsed = difftime ( timer_end,timer_begin );
 		cout<< secondsElapsed<<" seconds for "<< nCount<<"  frames : FPS = "<<  ( float ) ( ( float ) ( nCount ) /secondsElapsed ) <<endl;
 		//display the image
-		namedWindow("Displaywindow", WINDOW_AUTOSIZE);
+		namedWindow("DisplayWindow", WINDOW_AUTOSIZE);
 		imshow("DisplayWindow", image);
 		cout<<"displaying image"<<endl;
 		
