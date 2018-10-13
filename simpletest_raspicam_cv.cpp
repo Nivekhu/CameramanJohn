@@ -12,7 +12,7 @@ int main ( int argc,char **argv ) {
 		cv::Mat image;
 		int nCount=10000;
 		//set camera params
-		Camera.set( CV_CAP_PROP_FORMAT, CV_8UC1 );
+		Camera.set( CV_CAP_PROP_FORMAT, CV_8UC3 );
 		//Open camera
 		cout<<"Opening Camera..."<<endl;
 		if (!Camera.open()) {cerr<<"Error opening the camera"<<endl;return -1;}
