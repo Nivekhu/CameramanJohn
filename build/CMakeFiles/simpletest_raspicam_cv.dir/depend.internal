@@ -89,14 +89,12 @@ CMakeFiles/simpletest_raspicam_cv.dir/simpletest_raspicam_cv.cpp.o
  /usr/local/include/opencv2/imgcodecs.hpp
  /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h
  /usr/local/include/opencv2/imgproc.hpp
- /usr/local/include/opencv2/imgproc/imgproc.hpp
  /usr/local/include/opencv2/imgproc/imgproc_c.h
  /usr/local/include/opencv2/imgproc/types_c.h
  /usr/local/include/opencv2/ml.hpp
  /usr/local/include/opencv2/ml/ml.inl.hpp
  /usr/local/include/opencv2/objdetect.hpp
  /usr/local/include/opencv2/objdetect/detection_based_tracker.hpp
- /usr/local/include/opencv2/objdetect/objdetect.hpp
  /usr/local/include/opencv2/objdetect/objdetect_c.h
  /usr/local/include/opencv2/opencv.hpp
  /usr/local/include/opencv2/opencv_modules.hpp

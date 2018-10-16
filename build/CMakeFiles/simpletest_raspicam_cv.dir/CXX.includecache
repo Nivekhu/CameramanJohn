@@ -7,8 +7,6 @@
 #IncludeRegexTransform: 
 
 /home/pi/Desktop/CameramanJohn/simpletest_raspicam_cv.cpp
-ctime
--
 sstream
 -
 fstream
@@ -17,15 +15,15 @@ iostream
 -
 raspicam/raspicam_cv.h
 -
-opencv2/objdetect/objdetect.hpp
+opencv2/objdetect.hpp
 -
-opencv2/imgproc/imgproc.hpp
+opencv2/imgproc.hpp
 -
 opencv2/face.hpp
 -
-opencv2/core/core.hpp
+opencv2/core.hpp
 -
-opencv2/highgui/highgui.hpp
+opencv2/highgui.hpp
 -
 
 /usr/local/include/opencv/cxcore.h
@@ -964,10 +962,6 @@ opencv2/highgui.hpp
 opencv2/imgproc/imgproc_c.h
 /usr/local/include/opencv2/opencv2/imgproc/imgproc_c.h
 
-/usr/local/include/opencv2/imgproc/imgproc.hpp
-opencv2/imgproc.hpp
-/usr/local/include/opencv2/imgproc/opencv2/imgproc.hpp
-
 /usr/local/include/opencv2/imgproc/imgproc_c.h
 opencv2/imgproc/types_c.h
 /usr/local/include/opencv2/imgproc/opencv2/imgproc/types_c.h
@@ -1003,10 +997,6 @@ opencv2/core.hpp
 -
 vector
 -
-
-/usr/local/include/opencv2/objdetect/objdetect.hpp
-opencv2/objdetect.hpp
-/usr/local/include/opencv2/objdetect/opencv2/objdetect.hpp
 
 /usr/local/include/opencv2/objdetect/objdetect_c.h
 opencv2/core/core_c.h
