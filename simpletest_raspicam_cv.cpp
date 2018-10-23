@@ -39,7 +39,10 @@ static void read_csv(const string& filename, vector<Mat>& images, vector<int>& l
 				CV_Error(CV_StsBadArg, error_message);
 		}
 		string line, path, classlabel;
+		int counter = 0;
 		while (getline(file, line)) {
+				cout << "Loading face " << counter/10 << " image " << counter%10 << endl;
+				counter++;
 				stringstream liness(line);
 				getline(liness, path, separator);
 				getline(liness, classlabel);
@@ -54,14 +57,14 @@ int main(int argc, const char *argv[]) {
 		// Check for valid command line arguments, print usage
 		// if no arguments were given.
 		/*
-		if (argc != 4) {
-				cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/csv.ext> </path/to/device id>" << endl;
-				cout << "\t </path/to/haar_cascade> -- Path to the Haar Cascade for face detection." << endl;
-				cout << "\t </path/to/csv.ext> -- Path to the CSV file with the face database." << endl;
-				cout << "\t <device id> -- The webcam device id to grab frames from." << endl;
-				exit(1);
-		}
-		*/
+		   if (argc != 4) {
+		   cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/csv.ext> </path/to/device id>" << endl;
+		   cout << "\t </path/to/haar_cascade> -- Path to the Haar Cascade for face detection." << endl;
+		   cout << "\t </path/to/csv.ext> -- Path to the CSV file with the face database." << endl;
+		   cout << "\t <device id> -- The webcam device id to grab frames from." << endl;
+		   exit(1);
+		   }
+		 */
 		// Get the path to your CSV:
 		string fn_haar = "/home/pi/opencv-3.4.1/data/haarcascades/haarcascade_frontalface_default.xml";
 		string fn_csv = "/home/pi/Desktop/CameramanJohn/faces.txt";
@@ -85,7 +88,10 @@ int main(int argc, const char *argv[]) {
 		// Create a FaceRecognizer and train it on the given images:
 		Ptr<FaceRecognizer> model = FisherFaceRecognizer::create();
 		// Training the face classifier
+		cout << "Trainging..." << endl;
 		model->train(images, labels);
+		cout << "Done training" << endl;
+
 		CascadeClassifier haar_cascade;
 		haar_cascade.load(fn_haar);
 		// Get a handle to the Video device:
@@ -112,21 +118,25 @@ int main(int argc, const char *argv[]) {
 						// Process face by face:
 						Rect face_i = faces[i];
 						// Crop the face from the image.
-
 						Mat face = gray(face_i);
 						Mat face_resized;
 						cv::resize(face, face_resized, Size(im_width, im_height), 1.0, 1.0, INTER_CUBIC);
 						// Now perform the prediction, see how easy that is:
-						int prediction = model->predict(face_resized);
-						
+					//	int prediction = model->predict(face_resized);
 						//Displaying face prediction
 						rectangle(original, face_i, CV_RGB(255, 0,0), 1);
+
 						//Calculate position of target
 						int pos_x = face_i.tl().x;
 						int pos_y = face_i.tl().y;
-
 						// And now put it into the image:
-						circle(original, Point(pos_x*2, pos_y*2), 1.0, CV_RGB(255,0,0), 2.0);
+						circle(original, Point(pos_x+face_i.width/2, pos_y+face_i.height/2), 1.0, CV_RGB(255,0,0), 2.0);
+						//Calculate the corner of the rectangle
+						int text_pos_x = std::max(face_i.tl().x - 10, 0);
+						int text_pos_y = std::max(face_i.tl().y - 10, 0);
+						//Display coords
+						string boxtext = format("x=%d y=%d", pos_x, pos_y);
+						putText(original, boxtext, Point(text_pos_x, text_pos_y),FONT_HERSHEY_PLAIN, 1.0, CV_RGB(255,0,0), 2.0);
 				}
 				// Show the result:
 				imshow("face_recognizer", original);
