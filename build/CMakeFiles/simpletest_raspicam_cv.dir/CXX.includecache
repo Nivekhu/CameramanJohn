@@ -19,6 +19,8 @@ opencv2/imgproc.hpp
 /home/pi/Desktop/CameramanJohn/opencv2/imgproc.hpp
 opencv2/objdetect.hpp
 /home/pi/Desktop/CameramanJohn/opencv2/objdetect.hpp
+wiringPi.h
+/home/pi/Desktop/CameramanJohn/wiringPi.h
 iostream
 -
 fstream
@@ -1409,4 +1411,6 @@ opencv2/core/core.hpp
 -
 opencv2/highgui/highgui.hpp
 -
+
+/usr/local/include/wiringPi.h
 

@@ -141,4 +141,5 @@ CMakeFiles/simpletest_raspicam_cv.dir/simpletest_raspicam_cv.cpp.o: /usr/local/i
 CMakeFiles/simpletest_raspicam_cv.dir/simpletest_raspicam_cv.cpp.o: /usr/local/include/opencv2/videostab/wobble_suppression.hpp
 CMakeFiles/simpletest_raspicam_cv.dir/simpletest_raspicam_cv.cpp.o: /usr/local/include/opencv2/xfeatures2d/cuda.hpp
 CMakeFiles/simpletest_raspicam_cv.dir/simpletest_raspicam_cv.cpp.o: /usr/local/include/raspicam/raspicam_cv.h
+CMakeFiles/simpletest_raspicam_cv.dir/simpletest_raspicam_cv.cpp.o: /usr/local/include/wiringPi.h
 

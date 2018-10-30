@@ -23,6 +23,7 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "opencv2/objdetect.hpp"
+#include "wiringPi.h"
 
 #include <iostream>
 #include <fstream>
@@ -117,12 +118,12 @@ int main(int argc, const char *argv[]) {
 				for(int i = 0; i < faces.size(); i++) {
 						// Process face by face:
 						Rect face_i = faces[i];
+						
 						// Crop the face from the image.
 						Mat face = gray(face_i);
 						Mat face_resized;
 						cv::resize(face, face_resized, Size(im_width, im_height), 1.0, 1.0, INTER_CUBIC);
-						// Now perform the prediction, see how easy that is:
-					//	int prediction = model->predict(face_resized);
+						
 						//Displaying face prediction
 						rectangle(original, face_i, CV_RGB(255, 0,0), 1);
 
