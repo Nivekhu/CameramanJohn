@@ -22,7 +22,7 @@ int main(void)
 						{0,0,0,1},
 						{1,0,0,1}};
 
-		for(int i = 0; i < 128; i++){
+		for(int i = 0; i < 512; i++){
 			for(int half = 0; half < 8; half++){
 				for(int pin = 0; pin < 4; pin++){
 					digitalWrite(controlPin[pin], seq[half][pin]);

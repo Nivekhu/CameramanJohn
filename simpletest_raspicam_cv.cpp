@@ -70,9 +70,31 @@ int main(int argc, const char *argv[]) {
 		string fn_haar = "/home/pi/opencv-3.4.1/data/haarcascades/haarcascade_frontalface_default.xml";
 		string fn_csv = "/home/pi/Desktop/CameramanJohn/faces.txt";
 		int deviceId = 0;
+		
+		// This sets up the GPIO Pins using wiring Pi
+		wiringPiSetup();
+
+		// This sets up the control pins for the stepper motors.
+		int controlPin[4] = {0,1,2,3};  // Sets up the array
+		pinMode(controlPin[0], OUTPUT); // Pin #17
+		pinMode(controlPin[1], OUTPUT); // Pin #18
+		pinMode(controlPin[2], OUTPUT); // Pin #27
+		pinMode(controlPin[3], OUTPUT); // Pin #22
+
+		// Hardcoded half-step sequence for a stepper motor
+		int seq[8][4] = {{1,0,0,0},
+						 {1,1,0,0},
+						 {0,1,0,0},
+						 {0,1,1,0},
+						 {0,0,1,0},
+						 {0,0,1,1},
+						 {0,0,0,1},
+						 {1,0,0,1}};
+
 		// These vectors hold the images and corresponding labels:
 		vector<Mat> images;
 		vector<int> labels;
+		
 		// Read in the data (fails if no valid input filename is given, but you'll get an error message):
 		try {
 				read_csv(fn_csv, images, labels);
@@ -81,27 +103,32 @@ int main(int argc, const char *argv[]) {
 				// nothing more we can do
 				exit(1);
 		}
+		
 		// Get the height from the first image. We'll need this
 		// later in code to reshape the images to their original
 		// size AND we need to reshape incoming faces to this size:
 		int im_width = images[0].cols;
 		int im_height = images[0].rows;
+		
 		// Create a FaceRecognizer and train it on the given images:
 		Ptr<FaceRecognizer> model = FisherFaceRecognizer::create();
+		
 		// Training the face classifier
 		cout << "Trainging..." << endl;
 		model->train(images, labels);
 		cout << "Done training" << endl;
-
 		CascadeClassifier haar_cascade;
 		haar_cascade.load(fn_haar);
+		
 		// Get a handle to the Video device:
 		VideoCapture cap(deviceId);
+		
 		// Check if we can use this device at all:
 		if(!cap.isOpened()) {
 				cerr << "Capture Device ID " << deviceId << "cannot be opened." << endl;
 				return -1;
 		}
+		
 		// Holds the current frame from the Video device:
 		Mat frame;
 		for(;;) {
