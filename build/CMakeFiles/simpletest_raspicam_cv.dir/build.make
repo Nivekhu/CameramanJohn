@@ -120,6 +120,7 @@ simpletest_raspicam_cv: /usr/local/lib/libopencv_xfeatures2d.so.3.4.1
 simpletest_raspicam_cv: /usr/local/lib/libopencv_ximgproc.so.3.4.1
 simpletest_raspicam_cv: /usr/local/lib/libopencv_xobjdetect.so.3.4.1
 simpletest_raspicam_cv: /usr/local/lib/libopencv_xphoto.so.3.4.1
+simpletest_raspicam_cv: /usr/local/lib/libwiringPi.so
 simpletest_raspicam_cv: /usr/local/lib/libopencv_shape.so.3.4.1
 simpletest_raspicam_cv: /usr/local/lib/libopencv_photo.so.3.4.1
 simpletest_raspicam_cv: /usr/local/lib/libopencv_datasets.so.3.4.1

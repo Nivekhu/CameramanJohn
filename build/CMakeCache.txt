@@ -174,6 +174,12 @@ raspicam_test_BINARY_DIR:STATIC=/home/pi/Desktop/CameramanJohn/build
 //Value Computed by CMake
 raspicam_test_SOURCE_DIR:STATIC=/home/pi/Desktop/CameramanJohn
 
+//The directory containing a CMake configuration file for wiringPi.
+wiringPi_DIR:PATH=wiringPi_DIR-NOTFOUND
+
+//Path to a library.
+wiringPi_LIB:FILEPATH=/usr/local/lib/libwiringPi.so
+
 
 ########################
 # INTERNAL cache entries

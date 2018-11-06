@@ -157,14 +157,20 @@ int main(int argc, const char *argv[]) {
 						//Calculate position of target
 						int pos_x = face_i.tl().x;
 						int pos_y = face_i.tl().y;
+						
 						// And now put it into the image:
 						circle(original, Point(pos_x+face_i.width/2, pos_y+face_i.height/2), 1.0, CV_RGB(255,0,0), 2.0);
+						
 						//Calculate the corner of the rectangle
 						int text_pos_x = std::max(face_i.tl().x - 10, 0);
 						int text_pos_y = std::max(face_i.tl().y - 10, 0);
+						
 						//Display coords
 						string boxtext = format("x=%d y=%d", pos_x, pos_y);
 						putText(original, boxtext, Point(text_pos_x, text_pos_y),FONT_HERSHEY_PLAIN, 1.0, CV_RGB(255,0,0), 2.0);
+
+						//Rotates the camera
+					
 				}
 				// Show the result:
 				imshow("face_recognizer", original);
