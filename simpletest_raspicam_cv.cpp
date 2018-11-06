@@ -141,6 +141,8 @@ int main(int argc, const char *argv[]) {
 				// Find the faces in the frame:
 				vector< Rect_<int> > faces;
 				haar_cascade.detectMultiScale(gray, faces);
+				//Creates a confidence variable to compare to
+				double global_conf = 0.0
 				// At this point you have the position of the faces
 				for(int i = 0; i < faces.size(); i++) {
 						// Process face by face:
@@ -150,6 +152,11 @@ int main(int argc, const char *argv[]) {
 						Mat face = gray(face_i);
 						Mat face_resized;
 						cv::resize(face, face_resized, Size(im_width, im_height), 1.0, 1.0, INTER_CUBIC);
+						
+						//Checking the confidence of the face
+						int label = -1;
+						double confidence = 0.0;
+						model->predict(face_resized, label, confidence);
 						
 						//Displaying face prediction
 						rectangle(original, face_i, CV_RGB(255, 0,0), 1);
@@ -166,7 +173,7 @@ int main(int argc, const char *argv[]) {
 						int text_pos_y = std::max(face_i.tl().y - 10, 0);
 						
 						//Display coords
-						string boxtext = format("x=%d y=%d", pos_x, pos_y);
+						string boxtext = format("x=%d y=%d confidence=%f", pos_x, pos_y, confidence);
 						putText(original, boxtext, Point(text_pos_x, text_pos_y),FONT_HERSHEY_PLAIN, 1.0, CV_RGB(255,0,0), 2.0);
 
 						//Rotates the camera
