@@ -158,7 +158,7 @@ int main(int argc, const char *argv[]) {
 						double confidence = 0.0;
 						model->predict(face_resized, label, confidence);
 
-						if(confidence <= global_conf + 100)
+						if(confidence <= global_conf + 10)
 						{
 								global_conf = confidence;
 								//Displaying face prediction
@@ -180,7 +180,8 @@ int main(int argc, const char *argv[]) {
 								putText(original, boxtext, Point(text_pos_x, text_pos_y),FONT_HERSHEY_PLAIN, 1.0, CV_RGB(255,0,0), 2.0);
 
 								//Rotates the camera
-
+								int center_x = 200;
+								
 
 						}
 				}
