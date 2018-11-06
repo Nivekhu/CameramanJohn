@@ -82,13 +82,21 @@ int main(int argc, const char *argv[]) {
 		pinMode(controlPin[3], OUTPUT); // Pin #22
 
 		// Hardcoded half-step sequence for a stepper motor
-		int seq[8][4] = {{1,0,0,0},
+		int seqR[8][4] = {{1,0,0,0},
 				{1,1,0,0},
 				{0,1,0,0},
 				{0,1,1,0},
 				{0,0,1,0},
 				{0,0,1,1},
 				{0,0,0,1},
+				{1,0,0,1}};
+		int seqL[8][4] = {{0,0,0,1},
+				{0,0,1,1},
+				{0,0,1,0},
+				{0,1,1,0},
+				{0,1,0,0},
+				{1,1,0,0},
+				{1,0,0,0},
 				{1,0,0,1}};
 
 		// These vectors hold the images and corresponding labels:
