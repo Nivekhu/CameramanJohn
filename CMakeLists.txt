@@ -1,6 +1,7 @@
 #####################################
 cmake_minimum_required (VERSION 2.8) 
 project (raspicam_test)
+set(CMAKE_BUILD_TYPE Release)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 find_package(raspicam REQUIRED)
 find_package(OpenCV REQUIRED)

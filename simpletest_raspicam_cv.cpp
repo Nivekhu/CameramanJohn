@@ -68,6 +68,7 @@ int main(int argc, const char *argv[]) {
 		 */
 		// Get the path to your CSV:
 		string fn_haar = "/home/pi/opencv-3.4.1/data/haarcascades/haarcascade_frontalface_default.xml";
+		string fn_lbp = "/home/pi/opencv-3.4.1/data/lbpcascades/lbpcascade_frontalface_improved.xml";
 		string fn_csv = "/home/pi/Desktop/CameramanJohn/faces.txt";
 		int deviceId = 0;
 
@@ -120,13 +121,20 @@ int main(int argc, const char *argv[]) {
 
 		// Create a FaceRecognizer and train it on the given images:
 		Ptr<FaceRecognizer> model = FisherFaceRecognizer::create();
+//		Ptr<FaceRecognizer> model = LBPHFaceRecognizer::create(); 
 
 		// Training the face classifier
-		cout << "Trainging..." << endl;
+		cout << "Training..." << endl;
 		model->train(images, labels);
 		cout << "Done training" << endl;
-		CascadeClassifier haar_cascade;
+		
+		//This is the haar_cascade code
+		CascadeClassifier haar_cascade;	
 		haar_cascade.load(fn_haar);
+		
+		//This is the lbp cascade code
+//		CascadeClassifier lbp_cascade;
+//		lbp_cascade.load(fn_lbp);
 
 		// Get a handle to the Video device:
 		VideoCapture cap(deviceId);
@@ -136,6 +144,8 @@ int main(int argc, const char *argv[]) {
 				cerr << "Capture Device ID " << deviceId << "cannot be opened." << endl;
 				return -1;
 		}
+		cap.set(cv::CAP_PROP_FRAME_WIDTH, 640);  //	X value
+		cap.set(cv::CAP_PROP_FRAME_HEIGHT, 480); // Y value
 
 		// Holds the current frame from the Video device:
 		Mat frame;
@@ -145,10 +155,15 @@ int main(int argc, const char *argv[]) {
 				Mat original = frame.clone();
 				// Convert the current frame to grayscale:
 				Mat gray;
+//				cvtColor(frame, gray, CV_BGR2GRAY);
 				cvtColor(original, gray, CV_BGR2GRAY);
 				// Find the faces in the frame:
 				vector< Rect_<int> > faces;
+				
+				//Calling the specific facial reconigzer and their detect function
+//				lbp_cascade.detectMultiScale(gray, faces);
 				haar_cascade.detectMultiScale(gray, faces);
+				
 				//Creates a confidence variable to compare to
 				double global_conf = std::numeric_limits<float>::infinity();;
 				// At this point you have the position of the faces
@@ -173,11 +188,11 @@ int main(int argc, const char *argv[]) {
 								rectangle(original, face_i, CV_RGB(255, 0,0), 1);
 
 								//Calculate position of target
-								int pos_x = face_i.tl().x;
-								int pos_y = face_i.tl().y;
+								int pos_x = face_i.tl().x+face_i.width/2;
+								int pos_y = face_i.tl().y+face_i.height/2;
 
 								// And now put it into the image:
-								circle(original, Point(pos_x+face_i.width/2, pos_y+face_i.height/2), 1.0, CV_RGB(255,0,0), 2.0);
+								circle(original, Point(pos_x, pos_y), 1.0, CV_RGB(255,0,0), 2.0);
 
 								//Calculate the corner of the rectangle
 								int text_pos_x = std::max(face_i.tl().x - 10, 0);
@@ -188,9 +203,20 @@ int main(int argc, const char *argv[]) {
 								putText(original, boxtext, Point(text_pos_x, text_pos_y),FONT_HERSHEY_PLAIN, 1.0, CV_RGB(255,0,0), 2.0);
 
 								//Rotates the camera
-								int center_x = 200;
-								
-
+								int center_x = 320;
+								bool clock = (pos_x > center_x);
+								int ticks = abs(center_x - pos_x);
+								for(int i = 0; i < ticks; i++){
+									for(int half = 0; half < 8; half++){
+										for(int pin = 0; pin < 4; pin++){
+											if(clock)
+												digitalWrite(controlPin[pin], seqR[half][pin]);
+											else
+												digitalWrite(controlPin[pin], seqL[half][pin]);
+										}
+										delay(1);
+									}
+								}
 						}
 				}
 				// Show the result:
