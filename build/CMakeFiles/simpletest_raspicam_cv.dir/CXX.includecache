@@ -23,6 +23,8 @@ wiringPi.h
 /home/pi/Desktop/CameramanJohn/wiringPi.h
 iostream
 -
+unistd.h
+-
 fstream
 -
 sstream
