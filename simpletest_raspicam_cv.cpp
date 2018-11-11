@@ -147,41 +147,50 @@ int main(int argc, const char *argv[]) {
 	}
 	cap.set(cv::CAP_PROP_FRAME_WIDTH, 640);  //	X value
 	cap.set(cv::CAP_PROP_FRAME_HEIGHT, 480); // Y value
+	
+	//Creates a confidence variable to compare to
+	double global_conf = std::numeric_limits<float>::infinity();;
+	
+	//Creates a variable to track image saving
+	int total = 0;
 
 	// Holds the current frame from the Video device:
-	Mat frame;
+	Mat frame;	
 	for(;;) {
 		cap >> frame;
 		// Clone the current frame:
 		Mat original = frame.clone();
 		// Convert the current frame to grayscale:
 		Mat gray;
-		//				cvtColor(frame, gray, CV_BGR2GRAY);
+		// cvtColor(frame, gray, CV_BGR2GRAY);
 		cvtColor(original, gray, CV_BGR2GRAY);
 		// Find the faces in the frame:
 		vector< Rect_<int> > faces;
 
-		//Calling the specific facial reconigzer and their detect function
+		// Calling the specific facial reconigzer and their detect function
 		lbp_cascade.detectMultiScale(gray, faces);
-		//				haar_cascade.detectMultiScale(gray, faces);
+		// haar_cascade.detectMultiScale(gray, faces);
 
-		//Creates a confidence variable to compare to
-		double global_conf = std::numeric_limits<float>::infinity();;
 		// At this point you have the position of the faces
 		for(int i = 0; i < faces.size(); i++) {
-			// Process face by face:
+			// Process face by face
 			Rect face_i = faces[i];
 
 			// Crop the face from the image.
 			Mat face = gray(face_i);
 			Mat face_resized;
 			cv::resize(face, face_resized, Size(im_width, im_height), 1.0, 1.0, INTER_CUBIC);
+			
+			// Saves the face
+//			string destination("../faces/orl_faces/s41/kevin"+to_string(total)+".pgm");
+//			imwrite(destination, face_resized);
+
 			//Checking the confidence of the face
 			int label = -1;
 			double confidence = 0.0;
 			model->predict(face_resized, label, confidence);
 
-			if(confidence <= global_conf + 10)
+			if(confidence <= global_conf + 30)
 			{
 				global_conf = confidence;
 				//Displaying face prediction
@@ -222,6 +231,7 @@ int main(int argc, const char *argv[]) {
 					exit(0);
 				}
 			}
+			total++;
 		}
 		// Show the result:
 		imshow("face_recognizer", original);
